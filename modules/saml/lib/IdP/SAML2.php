@@ -1206,6 +1206,9 @@ class SAML2
             $nameIdFormat = current($spMetadata->getArrayizeString('NameIDFormat', []));
             if ($nameIdFormat === null) {
                 $nameIdFormat = current($idpMetadata->getArrayizeString('NameIDFormat', [\SAML2\Constants::NAMEID_TRANSIENT]));
+            } elseif ($nameIdFormat === false) {
+                // Not set in request or in metadata. Fall back to transient
+                $nameIdFormat = \SAML2\Constants::NAMEID_TRANSIENT;
             }
         }
 
